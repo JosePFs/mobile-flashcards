@@ -22,7 +22,9 @@ class DeckDetail extends Component {
   }
   
   startQuiz = () => {
-
+    const { deck } = this.props.navigation.state.params;
+    const { navigate } = this.props.navigation;
+    navigate('Quiz', {deck});
   }
 
   render() {
@@ -31,9 +33,12 @@ class DeckDetail extends Component {
     return (
       <View style={styles.contentContainer}>
         <Deck stylesTitle={styles.title} stylesCardSum={styles.cardSum} deck={deck} />
-        <TextButton style={styles.textButton} onPress={this.addCard}>Add Card</TextButton>
         <TextButton 
-          style={[styles.textButton, styles.textButtonBlack, styles.textButtonBottom]} 
+          style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}
+          onPress={this.addCard}>Add Card</TextButton
+          >
+        <TextButton 
+          style={{viewTextButton: [styles.viewTextButton, styles.viewTextButtonBottom], textTextButton: [styles.textTextButton, styles.textButtonBlack]}} 
           onPress={this.startQuiz}>
           Start Quiz
         </TextButton>
@@ -55,16 +60,18 @@ const styles = StyleSheet.create({
   cardSum: {
     fontSize: 20
   },
-  textButton: {
+  viewTextButton: {
     margin: 10,
+  },
+  viewTextButtonBottom: {
+    marginBottom: 50,
+    backgroundColor: lightBlack    
+  },
+  textTextButton: {
     fontSize: 20
   },
   textButtonBlack: {
-    backgroundColor: lightBlack,
     color: white
-  },
-  textButtonBottom: {
-    marginBottom: 40
   }
 });
 

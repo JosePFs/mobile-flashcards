@@ -1,26 +1,30 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
 
 import { white, lightBlack } from '../utils/colors';
 
-export default function TextButton ({ children, onPress, style = {} }) {
+export default function TextButton ({ children, onPress, style = {viewTextButton, textTextButton}}) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text style={[styles.reset, style]}>{children}</Text>
-    </TouchableOpacity>
+    <TouchableNativeFeedback onPress={onPress}>
+      <View style={[styles.container, style.viewTextButton]}>
+        <Text style={[styles.text, style.textTextButton]}>{children}</Text>
+      </View>
+    </TouchableNativeFeedback>
   )
 }
 
 const styles = StyleSheet.create({
-  reset: {
+  container: {
     borderWidth: 1,
     borderRadius: 4,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 40,
     paddingRight: 40,
-    textAlign: 'center',
-    color: lightBlack,
     backgroundColor: white
+  },
+  text: {
+    color: lightBlack,
+    textAlign: 'center'    
   }
 })

@@ -51,3 +51,9 @@ export function setLocalNotification () {
       }
     })
 }
+
+export function formatResults (results, defaults) {
+  return results === null
+    ? defaults
+    : JSON.parse(results)
+}

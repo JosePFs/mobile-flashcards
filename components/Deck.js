@@ -62,9 +62,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: lightBlack,
-    fontSize: 25
+    fontSize: 25,
+    textAlign: 'center'    
   },
   cardsSum: {
+    marginTop: 8,
     color: gray
   }
 });

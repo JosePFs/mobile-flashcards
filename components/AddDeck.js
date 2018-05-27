@@ -20,7 +20,7 @@ class AddDeck extends Component {
           onChangeText={(title) => this.setState({title})}
         >
         </TextInput>
-        <TextButton style={styles.textButton}>
+        <TextButton style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}>
           Submit
         </TextButton>
       </View>
@@ -40,10 +40,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: -90
   },
-  textButton: {
+  viewTextButton: {
+    backgroundColor: lightBlack
+  },
+  textTextButton: {
     fontSize: 20,
-    backgroundColor: lightBlack,
-    color: white
+    color: white    
   }
 });
 

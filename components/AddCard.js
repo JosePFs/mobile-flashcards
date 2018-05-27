@@ -36,7 +36,9 @@ class AddCard extends Component {
         >
         </TextInput>
         <View style={styles.bottom}>
-          <TextButton style={styles.textButton}>
+          <TextButton 
+            style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}
+            >
             Submit
           </TextButton>
         </View>
@@ -60,11 +62,13 @@ const styles = StyleSheet.create({
     borderColor: lightBlack,
     marginTop: 30    
   },
-  textButton: {
-    fontSize: 20,
+  viewTextButton: {
     backgroundColor: lightBlack,
-    color: white,
-    marginBottom: 30
+    marginBottom: 50
+  },
+  textTextButton: {
+    fontSize: 20,
+    color: white
   },
   bottom: {
     flex: 2,

@@ -10,22 +10,20 @@ import {
 import { AppLoading } from 'expo';
 
 import { white, lightGray, lightBlack, gray } from '../utils/colors';
+import { getDecks } from '../utils/api';
 import Deck from './Deck';
-
-const decks = [
-  { name: 'nombre 1', cards: [{ question: '?', response: '!' }, { question: '?', response: '!' }, { question: '?', response: '!' }]},
-  { name: 'nombre 2', cards: [{ question: '?', response: '!' }, { question: '?', response: '!' }]},
-  { name: 'nombre 3', cards: [{ question: '?', response: '!' }] },
-  { name: 'nombre 4', cards: [{ question: '?', response: '!' }] },
-  { name: 'nombre 5', cards: [{ question: '?', response: '!' }] },
-  { name: 'nombre 6', cards: [{ question: '?', response: '!' }] },
-  { name: 'nombre 7', cards: [{ question: '?', response: '!' }] }
-];
 
 class Decks extends Component {
   
   state = {
-    ready: true
+    ready: false,
+    decks: ''
+  }
+
+  componentDidMount() {
+    getDecks()
+      .then(decks => this.setState({decks}))
+      .then(() => this.setState(() => ({ready: true})))
   }
 
   selectDeck(deck) {
@@ -34,7 +32,7 @@ class Decks extends Component {
   }
 
   render() {
-    const { ready } = this.state;
+    const { ready, decks } = this.state;
 
     if (ready === false) {
       return <AppLoading />
@@ -69,6 +67,11 @@ const styles = StyleSheet.create({
   container: {
     borderBottomColor: lightGray,
     borderBottomWidth: 1
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   message: {
     color: gray,
