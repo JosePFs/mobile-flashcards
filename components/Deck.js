@@ -22,8 +22,8 @@ class Deck extends Component {
 
     return (
       <View style={styles.center}>
-        <Text style={[styles.title, stylesTitle]}>{deck.name}</Text>
-        <Text style={[styles.cardsSum, stylesCardSum]}>{deck.cards.length} cards</Text>
+        <Text style={[styles.title, stylesTitle]}>{deck.title}</Text>
+        <Text style={[styles.cardsSum, stylesCardSum]}>{deck.questions.length} cards</Text>
       </View>
   )}
 
@@ -33,8 +33,8 @@ class Deck extends Component {
 
     return (
       <View style={styles.center}>
-        <Animated.Text style={[styles.title, stylesTitle, {transform: [{scale: bounceValue}]}]}>{deck.name}</Animated.Text>
-        <Animated.Text style={[styles.cardsSum, stylesCardSum, {transform: [{scale: bounceValue}]}]}>{deck.cards.length} cards</Animated.Text>
+        <Animated.Text style={[styles.title, stylesTitle, {transform: [{scale: bounceValue}]}]}>{deck.title}</Animated.Text>
+        <Animated.Text style={[styles.cardsSum, stylesCardSum, {transform: [{scale: bounceValue}]}]}>{deck.questions.length} cards</Animated.Text>
       </View>
   )}
 

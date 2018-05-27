@@ -3,10 +3,10 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import { white, lightBlack } from '../utils/colors';
 
-export default function Card ({ card }) {
+export default function Card ({ text }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Does React Native work with Android sure sure sure?</Text>
+      <Text style={styles.title}>{text}</Text>
     </View>
   )
 }

@@ -1,12 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import { white, lightBlack } from '../utils/colors';
-
-export default function QuizStatus ({ card, deck }) {
+export default function QuizStatus ({ deckCardIndex, deckTotalCards }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>2/2</Text>
+      <Text style={styles.title}>{deckCardIndex+1}/{deckTotalCards}</Text>
     </View>
   )
 }

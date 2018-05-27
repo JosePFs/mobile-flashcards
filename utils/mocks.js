@@ -1,9 +1,24 @@
-export const defaultDecks = [
-  { name: 'nombre 1', cards: [{ question: '?', response: '!' }, { question: '?', response: '!' }, { question: '?', response: '!' }]},
-  { name: 'nombre largo largo largo largo largo', cards: [{ question: '?', response: '!' }, { question: '?', response: '!' }]},
-  { name: 'nombre 3', cards: [{ question: '?', response: '!' }] },
-  { name: 'nombre 4', cards: [{ question: '?', response: '!' }] },
-  { name: 'nombre 5', cards: [{ question: '?', response: '!' }] },
-  { name: 'nombre 6', cards: [{ question: '?', response: '!' }] },
-  { name: 'nombre 7', cards: [{ question: '?', response: '!' }] }
-];
+export const defaultDecks = {
+  React: {
+    title: 'React',
+    questions: [
+      {
+        question: 'What is React?',
+        answer: 'A library for managing user interfaces'
+      },
+      {
+        question: 'Where do you make Ajax requests in React?',
+        answer: 'The componentDidMount lifecycle event'
+      }
+    ]
+  },
+  JavaScript: {
+    title: 'JavaScript',
+    questions: [
+      {
+        question: 'What is a closure?',
+        answer: 'The combination of a function and the lexical environment within which that function was declared.'
+      }
+    ]
+  }
+};

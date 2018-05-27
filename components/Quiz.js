@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { TouchableWithoutFeedback, View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
+import { View, Text, StyleSheet } from 'react-native';
 
-import { white, green, red } from '../utils/colors';
+import FlipCard from 'react-native-flip-card';
+
+import { white, green, red, lightBlack } from '../utils/colors';
 import Deck from './Deck';
 import TextButton from './TextButton';
 import QuizStatus from './QuizStatus';
+import QuizResult from './QuizResult';
 import Card from './Card';
 
 class Quiz extends Component {
@@ -16,34 +18,38 @@ class Quiz extends Component {
   }
 
   state = {
-    currentCard: ''
+    currentCardIndex: 0,
+    correctResponses: 0,
+    incorrectResponses: 0
   }
 
-  flip = () => {
-    alert('flip');
+  step = () => {
+    this.setState({currentCardIndex: this.state.currentCardIndex + 1});
   }
 
   correct = () => {
+    this.step();
+    this.setState({correctResponses: this.state.correctResponses + 1});
   }
   
   incorrect = () => {
-
+    this.step();    
+    this.setState({incorrectResponses: this.state.incorrectResponses + 1});    
   }
 
-  render() {
+  getCard(side) {
     const { deck } = this.props.navigation.state.params;
-    const { currentCard } = this.state;
+    const { currentCardIndex } = this.state;
+    const currentCard = deck.questions[currentCardIndex];
+    const cardText = side === 'answer'
+                    ? currentCard.question
+                    : currentCard.answer;
 
     return (
       <View style={styles.contentContainer}>
-        <QuizStatus card={currentCard} deck={deck} />
-        <Card card={currentCard} />
-        <TouchableWithoutFeedback
-          onPress={this.flip}
-          style={styles.flip}
-        >
-          <View><Text style={styles.flipText}>Flip</Text></View>
-        </TouchableWithoutFeedback>
+        <QuizStatus deckCardIndex={currentCardIndex} deckTotalCards={deck.questions.length} />
+        <Card text={cardText} />
+        <View style={styles.flip}><Text style={styles.flipText}>{side}</Text></View>
         <View>
           <TextButton 
             style={{
@@ -65,12 +71,47 @@ class Quiz extends Component {
       </View>
     )
   }
+
+  render() {
+    const { deck } = this.props.navigation.state.params;    
+    const { currentCardIndex, correctResponses, incorrectResponses } = this.state;    
+
+    if (deck.questions.length === (correctResponses + incorrectResponses)) {
+      return (
+        <QuizResult
+          questions={deck.questions.length}
+          correct={correctResponses}
+          incorrect={incorrectResponses}
+        />
+      )
+    }
+
+    return (
+      <View style={styles.cardContainer}>
+        <FlipCard
+          perspective={1000}
+          clickable={true}
+          flipHorizontal={true}
+          flipVertical={false}
+          alignWidth={true}
+        >
+          {this.getCard('answer')}
+          {this.getCard('question')}
+        </FlipCard>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
+  cardContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
   contentContainer: {
     backgroundColor: white,
     flex: 1,
+    flexDirection: 'column',    
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 50

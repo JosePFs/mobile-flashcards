@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
 import { white, lightBlack } from '../utils/colors';
 import Deck from './Deck';
@@ -11,19 +10,21 @@ class DeckDetail extends Component {
     const { deck } = navigation.state.params;
     
     return {
-      title: deck.name
+      title: deck.title
     }
   }
 
   addCard = () => {
     const { deck } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
+    
     navigate('AddCard', {deck});
   }
   
   startQuiz = () => {
     const { deck } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
+    
     navigate('Quiz', {deck});
   }
 
@@ -33,15 +34,17 @@ class DeckDetail extends Component {
     return (
       <View style={styles.contentContainer}>
         <Deck stylesTitle={styles.title} stylesCardSum={styles.cardSum} deck={deck} />
-        <TextButton 
-          style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}
-          onPress={this.addCard}>Add Card</TextButton
-          >
-        <TextButton 
-          style={{viewTextButton: [styles.viewTextButton, styles.viewTextButtonBottom], textTextButton: [styles.textTextButton, styles.textButtonBlack]}} 
-          onPress={this.startQuiz}>
-          Start Quiz
-        </TextButton>
+        <View style={styles.textButtonsContainer}>
+          <TextButton 
+            style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}
+            onPress={this.addCard}>Add Card</TextButton
+            >
+          <TextButton 
+            style={{viewTextButton: [styles.viewTextButton, styles.viewTextButtonBlack], textTextButton: [styles.textTextButton, styles.textButtonBlack]}} 
+            onPress={this.startQuiz}>
+            Start Quiz
+          </TextButton>
+        </View>
       </View>
     )
   }
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: white,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   title: {
@@ -63,8 +66,10 @@ const styles = StyleSheet.create({
   viewTextButton: {
     margin: 10,
   },
-  viewTextButtonBottom: {
-    marginBottom: 50,
+  textButtonsContainer: {
+    marginBottom: 50
+  },
+  viewTextButtonBlack: {
     backgroundColor: lightBlack    
   },
   textTextButton: {

@@ -48,8 +48,8 @@ class Decks extends Component {
 
     return (
       <ScrollView style={styles.contentContainer}>
-        {decks.map(deck => (
-          <View key={deck.name} style={styles.container}>
+        {Object.values(decks).map(deck => (
+          <View key={deck.title} style={styles.container}>
             <View>
               <Deck deck={deck} onPress={() => this.selectDeck(deck)} />
             </View>
