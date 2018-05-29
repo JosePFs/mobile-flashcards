@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
 
-import { white, lightBlack } from '../utils/colors';
+import { white, lightBlack, lightGray, gray } from '../utils/colors';
 
-export default function TextButton ({ children, onPress, style = {viewTextButton, textTextButton}}) {
+export default function TextButton ({ children, isDisabled = false, onPress, style = {viewTextButton, textTextButton}}) {
   return (
-    <TouchableNativeFeedback onPress={onPress}>
-      <View style={[styles.container, style.viewTextButton]}>
+    <TouchableNativeFeedback disabled={isDisabled} onPress={onPress}>
+      <View style={[styles.container, style.viewTextButton, isDisabled && {opacity: .7}]}>
         <Text style={[styles.text, style.textTextButton]}>{children}</Text>
       </View>
     </TouchableNativeFeedback>

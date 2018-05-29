@@ -21,7 +21,7 @@ class AddDeck extends Component {
     .then((deck) => {
       this.setState({title: ''});
       const { navigate } = this.props.navigation;
-      navigate('Decks', { deck });
+      navigate('DeckDetail', { deck: deck[title] });
     });
   }
 
@@ -37,8 +37,8 @@ class AddDeck extends Component {
           value={title}
         >
         </TextInput>
-        <TextButton onPress={() => this.addDeck()} style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}>
-          Submit
+        <TextButton isDisabled={!title} onPress={() => this.addDeck()} style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}>
+          Create Deck
         </TextButton>
       </View>
     );

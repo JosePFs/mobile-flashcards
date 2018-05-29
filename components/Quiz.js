@@ -37,6 +37,14 @@ class Quiz extends Component {
     this.setState({incorrectResponses: this.state.incorrectResponses + 1});    
   }
 
+  restart = () => {
+    this.setState({
+      currentCardIndex: 0,
+      correctResponses: 0,
+      incorrectResponses: 0
+    });
+  }
+
   getCard(side) {
     const { deck } = this.props.navigation.state.params;
     const { currentCardIndex } = this.state;
@@ -80,9 +88,11 @@ class Quiz extends Component {
         deck.questions.length === (correctResponses + incorrectResponses)) {
       return (
         <QuizResult
-          questions={deck.questions.length}
+          navigation={this.props.navigation}
+          deck={deck}
           correct={correctResponses}
           incorrect={incorrectResponses}
+          onRestart={this.restart}
         />
       )
     }
@@ -115,7 +125,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',    
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 50
+    paddingBottom: 50,
+    minWidth: '100%'
   },
   textTextButton: {
     fontSize: 20,

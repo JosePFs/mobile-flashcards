@@ -14,8 +14,8 @@ class AddCard extends Component {
   }
 
   state = {
-    question: '',
-    answer: ''
+    question: null,
+    answer: null
   }
 
   addCard = () => {
@@ -55,11 +55,12 @@ class AddCard extends Component {
         >
         </TextInput>
         <View style={styles.bottom}>
-          <TextButton 
-            style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}
+          <TextButton
             onPress={this.addCard}
+            isDisabled={!question || !answer}
+            style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}
             >
-            Submit
+            Create Card
           </TextButton>
         </View>
       </View>
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   },
   viewTextButton: {
     backgroundColor: lightBlack,
-    marginBottom: 50
+    marginBottom: 90
   },
   textTextButton: {
     fontSize: 20,

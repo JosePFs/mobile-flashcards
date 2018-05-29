@@ -29,6 +29,7 @@ class Decks extends Component {
 
   onDidFocus = () => {
     const deck = this.props.navigation.getParam('deck');
+
     if (deck) {
       this.setState(state => {
         const decks = Object.assign(state.decks, deck);
@@ -37,6 +38,11 @@ class Decks extends Component {
           decks
         }
       })
+    } else {
+      this.setState({ready: false});
+      getDecks()
+      .then(decks => this.setState({decks}))
+      .then(() => this.setState(() => ({ready: true})))
     }
   }
 
