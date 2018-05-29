@@ -3,12 +3,13 @@ import { StyleSheet, TextInput as TextInputComponent } from 'react-native';
 
 import { gray } from '../utils/colors';
 
-export default function TextInput ({ placeholder, onChangeText, style = {} }) {
+export default function TextInput ({ placeholder, onChangeText, value = '', style = {} }) {
   return (
     <TextInputComponent
     style={[styles.textInput, style]}
     placeholder={placeholder}
     onChangeText={(text) => onChangeText(text)}
+    value={value}
     >
     </TextInputComponent>
   )

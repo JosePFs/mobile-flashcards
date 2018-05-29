@@ -10,20 +10,34 @@ import {
 import { AppLoading } from 'expo';
 
 import { white, lightGray, lightBlack, gray } from '../utils/colors';
-import { getDecks } from '../utils/api';
+import { getDecks, clear } from '../utils/api';
 import Deck from './Deck';
 
 class Decks extends Component {
   
   state = {
     ready: false,
-    decks: ''
+    decks: null
   }
 
   componentDidMount() {
+    this.props.navigation.addListener('didFocus', this.onDidFocus);
     getDecks()
       .then(decks => this.setState({decks}))
       .then(() => this.setState(() => ({ready: true})))
+  }
+
+  onDidFocus = () => {
+    const deck = this.props.navigation.getParam('deck');
+    if (deck) {
+      this.setState(state => {
+        const decks = Object.assign(state.decks, deck);
+        return {
+          ...state,
+          decks
+        }
+      })
+    }
   }
 
   selectDeck(deck) {
@@ -38,10 +52,10 @@ class Decks extends Component {
       return <AppLoading />
     }
 
-    if (decks.length === 0) {
+    if (null === decks) {
       return (
         <View style={styles.center}>
-          <Text style={styles.message}>No desk found! Add deck in main menu</Text>
+          <Text style={styles.message}>No desks found! Add deck in main menu</Text>
         </View>
       );
     }

@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { white, lightBlack, gray } from '../utils/colors';
 import TextButton from './TextButton';
 import TextInput from './TextInput';
+import { addCardToDeck } from '../utils/api';
 
 class AddCard extends Component {
   static navigationOptions = () => {
@@ -17,7 +18,23 @@ class AddCard extends Component {
     answer: ''
   }
 
+  addCard = () => {
+    const { question, answer } = this.state;
+    const { deck } = this.props.navigation.state.params;
+
+    if (question.length === 0 || answer.length === 0) {
+      return;
+    }
+    addCardToDeck(deck.title, {question, answer})
+    .then((deck) => {
+      this.setState({question: '', answer: ''});
+      const { navigate } = this.props.navigation;
+      navigate('DeckDetail', { deck });
+    });
+  }
+
   render() {
+    const { question, answer } = this.state;
     const { deck } = this.props.navigation.state.params;
 
     return (
@@ -27,17 +44,20 @@ class AddCard extends Component {
           placeholder="Question"
           onChangeText={(question) => this.setState({question})}
           style={styles.textInput}
+          value={question}
         >
         </TextInput>
         <TextInput
           placeholder="Answer"
           onChangeText={(answer) => this.setState({answer})}
           style={styles.textInput}
+          value={answer}
         >
         </TextInput>
         <View style={styles.bottom}>
           <TextButton 
             style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}
+            onPress={this.addCard}
             >
             Submit
           </TextButton>

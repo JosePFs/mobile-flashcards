@@ -1,14 +1,13 @@
 import { AsyncStorage } from 'react-native';
 
 import { formatResults } from './helpers';
-import { defaultDecks } from './mocks';
 
 const DECKS_STORAGE_KEY = 'Flashcards:decks';
 const CALENDAR_STORAGE_KEY = 'Flashcards:calendar';
 
 export function getDecks () {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then(results => (formatResults(results, defaultDecks)))
+    .then(results => (formatResults(results, null)))
 }
 
 export function getDeck (deckId) {
@@ -17,23 +16,29 @@ export function getDeck (deckId) {
 }
 
 export function saveDeckTitle (title) {
-  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+  const deck = {
     [title]: {
-      title: title
+      title: title,
+      questions: []
     }
-  })).then(results => (formatResults(results, {})));
+  };
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck))
+    .then(() => (deck));
 }
 
 export function addCardToDeck (title, card) {
-  return AsyncStorage.getItem(CALENDAR_STORAGE_KEY)
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       const deck = JSON.parse(results)[title];
-      const questions = deck[questions] || [];
-      questions.push(card);
-      return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-        [title]: {
-          questions 
-        }
+      deck.questions.push(card);
+      AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+        [title]: deck
       }));
-    }).then(results => (formatResults(results, {})));
+      return deck;
+    }).then(deck => (deck));
+}
+
+export function clear () {
+  return AsyncStorage.removeItem(DECKS_STORAGE_KEY)
+    .then(() => ({}));
 }

@@ -8,28 +8,47 @@ import TextButton from './TextButton';
 class DeckDetail extends Component {
   static navigationOptions = ({ navigation }) => {
     const { deck } = navigation.state.params;
-    
-    return {
+    return { 
       title: deck.title
     }
   }
 
+  state = {
+    deck: {
+      title: '',
+      questions: []
+    }
+  }
+
+  componentDidMount() {
+    this.props.navigation.addListener('didFocus', this.onDidFocus);
+    const deck = this.props.navigation.getParam('deck');
+    this.setState({deck});
+  }
+
+  onDidFocus = () => {
+    const deck = this.props.navigation.getParam('deck');
+    if (deck) {
+      this.setState({deck});
+    }
+  }
+
   addCard = () => {
-    const { deck } = this.props.navigation.state.params;
+    const { deck } = this.state;
     const { navigate } = this.props.navigation;
     
     navigate('AddCard', {deck});
   }
   
   startQuiz = () => {
-    const { deck } = this.props.navigation.state.params;
+    const { deck } = this.state;
     const { navigate } = this.props.navigation;
     
     navigate('Quiz', {deck});
   }
 
   render() {
-    const { deck } = this.props.navigation.state.params;
+    const { deck } = this.state;
 
     return (
       <View style={styles.contentContainer}>
@@ -39,11 +58,11 @@ class DeckDetail extends Component {
             style={{viewTextButton: styles.viewTextButton, textTextButton: styles.textTextButton}}
             onPress={this.addCard}>Add Card</TextButton
             >
-          <TextButton 
+          {deck.questions.length > 0 && <TextButton 
             style={{viewTextButton: [styles.viewTextButton, styles.viewTextButtonBlack], textTextButton: [styles.textTextButton, styles.textButtonBlack]}} 
             onPress={this.startQuiz}>
             Start Quiz
-          </TextButton>
+          </TextButton>}
         </View>
       </View>
     )

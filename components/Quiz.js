@@ -76,7 +76,8 @@ class Quiz extends Component {
     const { deck } = this.props.navigation.state.params;    
     const { currentCardIndex, correctResponses, incorrectResponses } = this.state;    
 
-    if (deck.questions.length === (correctResponses + incorrectResponses)) {
+    if (deck.questions.length > 0 && 
+        deck.questions.length === (correctResponses + incorrectResponses)) {
       return (
         <QuizResult
           questions={deck.questions.length}
@@ -115,12 +116,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 50
-  },
-  title: {
-    fontSize: 35
-  },
-  cardSum: {
-    fontSize: 20
   },
   textTextButton: {
     fontSize: 20,

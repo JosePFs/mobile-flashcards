@@ -19,11 +19,12 @@ class Deck extends Component {
 
   getDeck = () => {
     const { deck, stylesTitle, stylesCardSum } = this.props;
+    const questionsLength = deck.questions ? deck.questions.length : 0;
 
     return (
       <View style={styles.center}>
         <Text style={[styles.title, stylesTitle]}>{deck.title}</Text>
-        <Text style={[styles.cardsSum, stylesCardSum]}>{deck.questions.length} cards</Text>
+        <Text style={[styles.cardsSum, stylesCardSum]}>{questionsLength} cards</Text>
       </View>
   )}
 
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   title: {
     color: lightBlack,
     fontSize: 25,
-    textAlign: 'center'    
+    textAlign: 'center' 
   },
   cardsSum: {
     marginTop: 8,

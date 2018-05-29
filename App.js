@@ -31,7 +31,7 @@ const Tabs = createMaterialTopTabNavigator({
     screen: AddDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck'
-    },
+    }
   }
 }, {
   navigationOptions: {
