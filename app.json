@@ -1,5 +1,11 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "sdkVersion": "27.0.0",
+    "name": "UNMobileFlashcards",
+    "slug": "UNMobileFlashcards",
+    "privacy": "public",
+    "platforms": ["android"],
+    "githubUrl": "https://github.com/JosePFs/mobile-flashcards",
+    "icon": "icon.png"
   }
 }
