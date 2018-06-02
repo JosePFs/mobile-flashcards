@@ -21,11 +21,13 @@ class AddCard extends Component {
   addCard = () => {
     const { question, answer } = this.state;
     const { deck } = this.props.navigation.state.params;
+    const cleanQuestion = question.trim();
+    const cleanAnswer = answer.trim();
 
-    if (question.length === 0 || answer.length === 0) {
+    if (cleanQuestion.length === 0 || cleanAnswer.length === 0) {
       return;
     }
-    addCardToDeck(deck.title, {question, answer})
+    addCardToDeck(deck.title, {question: cleanQuestion, answer: cleanAnswer})
     .then((deck) => {
       this.setState({question: '', answer: ''});
       const { navigate } = this.props.navigation;

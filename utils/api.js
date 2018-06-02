@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native';
 import { formatResults } from './helpers';
 
 const DECKS_STORAGE_KEY = 'Flashcards:decks';
-const CALENDAR_STORAGE_KEY = 'Flashcards:calendar';
 
 export function getDecks () {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
@@ -35,7 +34,7 @@ export function addCardToDeck (title, card) {
         [title]: deck
       }));
       return deck;
-    }).then(deck => (deck));
+    });
 }
 
 export function clear () {

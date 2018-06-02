@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { TouchableNativeFeedback, View, Text, StyleSheet, Animated } from 'react-native';
+import {
+  TouchableNativeFeedback,
+  TouchableHighlight,
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  Platform
+} from 'react-native';
 
 import { gray, lightBlack } from '../utils/colors';
 
@@ -42,7 +50,11 @@ class Deck extends Component {
   render() {
     const { onPress } = this.props;
     
-    if (onPress) {
+    if (onPress && Platform.OS === 'ios') {
+      <TouchableHighlight onPress={() => onPress()}>
+        {this.getDeck()}
+      </TouchableHighlight>
+    } else if (onPress) {
       return (
         <TouchableNativeFeedback onPress={() => onPress()}>
           {this.getDeck()}

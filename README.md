@@ -34,7 +34,7 @@ To get started developing/reviewing right away:
 └── README.md -This file
 ```
 
-Designed only for Android (I am a poor man!) and tested emulating on version sdk 23 version and Android device 6.0 Marshmallow.
+Designed for Android and IOs but only tested on Android sdk 23 version and Android device 6.0 Marshmallow.
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 

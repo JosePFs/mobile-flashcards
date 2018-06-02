@@ -14,14 +14,15 @@ class AddDeck extends Component {
 
   addDeck = () => {
     const { title } = this.state;
-    if (title.length === 0) {
+    const cleanTitle = title.trim();
+    if (cleanTitle.length === 0) {
       return;
     }
-    saveDeckTitle(title)
+    saveDeckTitle(cleanTitle)
     .then((deck) => {
       this.setState({title: ''});
       const { navigate } = this.props.navigation;
-      navigate('DeckDetail', { deck: deck[title] });
+      navigate('DeckDetail', { deck: deck[cleanTitle] });
     });
   }
 

@@ -1,16 +1,36 @@
 import React from 'react';
-import { View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableNativeFeedback,
+  TouchableHighlight,
+  StyleSheet,
+  Platform
+} from 'react-native';
 
 import { white, lightBlack, lightGray, gray } from '../utils/colors';
 
 export default function TextButton ({ children, isDisabled = false, onPress, style = {viewTextButton, textTextButton}}) {
+  if (Platform.OS === 'ios') {
+    return (
+      <TouchableHighlight disabled={isDisabled} onPress={onPress}>
+        {getButton(children, isDisabled, style)}
+      </TouchableHighlight>  
+    );
+  }
   return (
     <TouchableNativeFeedback disabled={isDisabled} onPress={onPress}>
-      <View style={[styles.container, style.viewTextButton, isDisabled && {opacity: .7}]}>
-        <Text style={[styles.text, style.textTextButton]}>{children}</Text>
-      </View>
+      {getButton(children, isDisabled, style)}
     </TouchableNativeFeedback>
   )
+}
+
+function getButton(children, isDisabled, style) {
+  return (
+    <View style={[styles.container, style.viewTextButton, isDisabled && {opacity: .7}]}>
+      <Text style={[styles.text, style.textTextButton]}>{children}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
